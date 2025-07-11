@@ -1,0 +1,8 @@
+{
+  "name": "@printworks/validation",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "zod": "^3.25.71"
+  }
+}

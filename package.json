@@ -1,0 +1,7 @@
+{
+  "name": "printworks",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run -r --parallel --aggregate-output dev"
+  }
+}
