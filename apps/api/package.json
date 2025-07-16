@@ -8,9 +8,11 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "formidable": "^3.5.4",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "nanoid": "^5.1.5",
+    "sharp": "^0.34.3",
     "zod": "^3.25.71",
     "zxcvbn": "^4.4.2"
   },

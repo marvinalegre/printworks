@@ -20,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="bg-white md:p-8 md:bg-black">
-        <div className="bg-white md:max-w-screen-md md:m-auto md:min-h-[80vh] md:rounded">
+        <div className="bg-white md:max-w-screen-md md:m-auto md:min-h-[80vh] md:rounded md:border">
           {children}
         </div>
         <ScrollRestoration />
