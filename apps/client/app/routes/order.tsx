@@ -8,12 +8,7 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
   const actionType = formData.get("_action");
 
-  if (actionType === "logout") {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-    });
-    return redirect("/login");
-  } else if (actionType === "upload") {
+  if (actionType === "upload") {
     const files = formData.getAll("files");
     const filenames = formData.get("filenames").split("|");
     const newFormData = new FormData();
@@ -160,6 +155,7 @@ export default function Order({ loaderData }: Route.ComponentProps) {
               {" | "}
               <logoutFetcher.Form
                 method="post"
+                action="/logout"
                 className="py-1 text-black inline"
               >
                 <input type="hidden" name="_action" value="logout" />

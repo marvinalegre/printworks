@@ -1,10 +1,4 @@
-import {
-  Link,
-  redirect,
-  useFetcher,
-  useNavigation,
-  useLoaderData,
-} from "react-router";
+import { Link, useFetcher, useNavigation, useLoaderData } from "react-router";
 import type { Route } from "./+types/home";
 import classNames from "classnames";
 
@@ -12,13 +6,6 @@ import PriceGrid from "../components/price-grid";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Printworks" }];
-}
-
-export async function clientAction() {
-  await fetch("/api/auth/logout", {
-    method: "POST",
-  });
-  return redirect("/login");
 }
 
 export async function clientLoader() {
@@ -48,7 +35,11 @@ export default function Home() {
                 {username}
               </Link>
               {" | "}
-              <fetcher.Form method="post" className="py-1 text-black inline">
+              <fetcher.Form
+                method="post"
+                action="/logout"
+                className="py-1 text-black inline"
+              >
                 <button className="cursor-pointer">log out</button>
               </fetcher.Form>
             </li>
