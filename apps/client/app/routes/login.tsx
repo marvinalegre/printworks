@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import type { Route } from "./+types/login";
 import { registerSchema } from "@printworks/validation";
+import Navbar from "~/components/navbar";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Printworks | Login" }];
@@ -54,11 +55,7 @@ export default function Login() {
 
   return (
     <>
-      <nav className="flex justify-between items-center px-[5px] py-[10px] relative bg-sky-500 h-9 text-white md:rounded-tl md:rounded-tr">
-        <Link to="/">
-          <div className="font-semibold text-3xl italic">DKK</div>
-        </Link>
-      </nav>
+      <Navbar />
 
       <div className="p-2 md:p-8 mt-[15vh] md:mt-[10vh]">
         <Form

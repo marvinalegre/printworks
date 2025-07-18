@@ -1,8 +1,9 @@
-import { Link, redirect, useFetcher, useLoaderData } from "react-router";
+import { redirect, useFetcher } from "react-router";
 import type { Route } from "./+types/order";
 import MultiFileUpload from "../components/multiple-file-upload";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import Navbar from "~/components/navbar";
 
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
@@ -52,7 +53,6 @@ export async function clientLoader() {
 
 export default function Order({ loaderData }: Route.ComponentProps) {
   const { username, orderRefNumber, files } = loaderData;
-  const logoutFetcher = useFetcher();
   const rmFileFetcher = useFetcher();
   const [currentFile, setCurrentFile] = useState(files[0]?.file_name || "");
   const [filesWithRanges, setFilesWithRanges] = useState(
@@ -142,29 +142,7 @@ export default function Order({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <nav className="flex justify-between items-center px-[5px] py-[10px] relative bg-sky-500 h-9 text-white md:rounded-tl md:rounded-tr">
-        <Link to="/">
-          <div className="font-semibold text-3xl italic">DKK</div>
-        </Link>
-        <ul className="flex space-x-8 ml-10 text-xl">
-          {username ? (
-            <li>
-              <Link to={username} className="py-1 text-black">
-                {username}
-              </Link>
-              {" | "}
-              <logoutFetcher.Form
-                method="post"
-                action="/logout"
-                className="py-1 text-black inline"
-              >
-                <input type="hidden" name="_action" value="logout" />
-                <button className="cursor-pointer">log out</button>
-              </logoutFetcher.Form>
-            </li>
-          ) : null}
-        </ul>
-      </nav>
+      <Navbar username={username} />
 
       <MultiFileUpload orderRefNumber={orderRefNumber} uploadedFiles={files} />
 

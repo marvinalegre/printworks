@@ -1,8 +1,9 @@
-import { Link, useFetcher, useNavigation, useLoaderData } from "react-router";
+import { Link, useNavigation } from "react-router";
 import type { Route } from "./+types/home";
 import classNames from "classnames";
 
 import PriceGrid from "../components/price-grid";
+import Navbar from "~/components/navbar";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Printworks" }];
@@ -17,35 +18,13 @@ export async function clientLoader() {
   return { username: null };
 }
 
-export default function Home() {
-  const { username } = useLoaderData();
-  const fetcher = useFetcher();
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { username } = loaderData;
   const navigation = useNavigation();
 
   return (
     <>
-      <nav className="flex justify-between items-center px-[5px] py-[10px] relative bg-sky-500 h-9 text-white md:rounded-tl md:rounded-tr">
-        <Link to="/">
-          <div className="font-semibold text-3xl italic">DKK</div>
-        </Link>
-        <ul className="flex space-x-8 ml-10 text-xl">
-          {username ? (
-            <li>
-              <Link to="/myaccount" className="py-1 text-black">
-                {username}
-              </Link>
-              {" | "}
-              <fetcher.Form
-                method="post"
-                action="/logout"
-                className="py-1 text-black inline"
-              >
-                <button className="cursor-pointer">log out</button>
-              </fetcher.Form>
-            </li>
-          ) : null}
-        </ul>
-      </nav>
+      <Navbar username={username} />
 
       <div
         className={classNames({
