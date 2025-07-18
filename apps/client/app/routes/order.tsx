@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Navbar from "~/components/navbar";
 
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Printworks | Order" }];
+}
+
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
   const actionType = formData.get("_action");
