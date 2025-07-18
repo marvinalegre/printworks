@@ -88,7 +88,7 @@ export async function handleUpload(req, res) {
           .get(orderRefNumber);
 
         db.prepare(
-          "insert into files (order_id, file_name, internal_name, md5_hash, file_size, num_pages, full_color_pages, mid_color_pages, spot_color_pages, paper_size) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "insert into files (order_id, file_name, internal_name, md5_hash, file_size, num_pages, full_color_pages, mid_color_pages, spot_color_pages, paper_size) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         ).run(
           order_id,
           originalFilename,
