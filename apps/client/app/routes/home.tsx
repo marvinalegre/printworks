@@ -36,16 +36,15 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <img src="/dkk-logo.svg" className="my-5 mx-auto" />
         </div>
 
-        <Link to="/order">
-          <div className="mt-6 flex justify-center">
-            <button
-              className="mt-10 px-6 py-3 bg-green-500 text-white text-lg font-bold rounded-md shadow-lg hover:bg-green-600 transition duration-300 ease-in-out"
-              tabIndex={1}
-            >
-              Start Order
-            </button>
-          </div>
-        </Link>
+        <div className="mt-6 flex justify-center">
+          <Link
+            to="/order"
+            tabIndex={1}
+            className="mt-10 px-6 py-3 bg-green-500 text-white text-lg font-bold rounded-md shadow-lg hover:bg-green-600 transition duration-300 ease-in-out"
+          >
+            Start Order
+          </Link>
+        </div>
 
         <PriceGrid />
 
