@@ -29,6 +29,7 @@ CREATE TABLE files (
     file_id INTEGER PRIMARY KEY AUTOINCREMENT,
     order_id INTEGER NOT NULL,
     file_name TEXT NOT NULL,
+    internal_name TEXT NOT NULL,
     md5_hash TEXT NOT NULL,
     file_size INTEGER NOT NULL,
     num_pages INTEGER NOT NULL,
