@@ -1,9 +1,11 @@
 import { redirect, useFetcher } from "react-router";
 import type { Route } from "./+types/order";
-import MultiFileUpload from "../components/multiple-file-upload";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+
+import MultiFileUpload from "../components/multiple-file-upload";
 import Navbar from "~/components/navbar";
+import UploadedFiles from "~/components/uploaded-files";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Printworks | Order" }];
@@ -151,44 +153,12 @@ export default function Order({ loaderData }: Route.ComponentProps) {
       <MultiFileUpload orderRefNumber={orderRefNumber} uploadedFiles={files} />
 
       {files.length > 0 && (
-        <div className="max-w-xl mx-auto my-20">
-          <div className="mt-4 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-            <h2 className="font-semibold text-gray-700 mb-2">
-              Uploaded Files:
-            </h2>
-            <ul className="divide-y divide-gray-100 mb-4">
-              {files.map((f, i) => (
-                <li
-                  key={i}
-                  className={classNames({
-                    "bg-gray-200": currentFile === f.file_name,
-                    "flex items-center justify-between py-1 px-3": true,
-                    "opacity-25 transition-opacity duration-200 delay-200":
-                      rmFileFetcher.state === "submitting",
-                  })}
-                >
-                  <button onClick={() => setCurrentFile(f.file_name)}>
-                    <span className="text-gray-700 truncate w-64">
-                      {f.file_name}
-                    </span>
-                  </button>
-                  <rmFileFetcher.Form method="post">
-                    <input type="hidden" name="_action" value="removeFile" />
-                    <input type="hidden" name="filename" value={f.file_name} />
-                    <input
-                      type="hidden"
-                      name="orderRefNumber"
-                      value={orderRefNumber}
-                    />
-                    <button className="text-red-500 hover:underline">
-                      Remove
-                    </button>
-                  </rmFileFetcher.Form>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <UploadedFiles
+          orderRefNumber={orderRefNumber}
+          files={files}
+          currentFile={currentFile}
+          setCurrentFile={setCurrentFile}
+        />
       )}
 
       {files.length > 0 && (
