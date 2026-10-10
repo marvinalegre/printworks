@@ -1,15 +1,27 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import { serveStatic } from "@hono/node-server/serve-static";
 
-const app = new Hono()
+import { Layout } from "./components/layout.js";
 
-app.get('/', (c) => {
-  return c.html(<h1>Hello Hono!</h1>)
-})
+const app = new Hono();
 
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
-})
+app.use("/*", serveStatic({ root: "./public" }));
+
+app.get("/", (c) => {
+  return c.html(
+    <Layout>
+      <h1>Hello Hono!</h1>
+    </Layout>,
+  );
+});
+
+serve(
+  {
+    fetch: app.fetch,
+    port: 3000,
+  },
+  (info) => {
+    console.log(`Server is running on http://localhost:${info.port}`);
+  },
+);
