@@ -2,6 +2,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 
+import { signup } from "./routes/signup.js";
 import { login } from "./routes/login.js";
 
 import { Layout } from "./components/layout.js";
@@ -19,6 +20,7 @@ app.get("/", (c) => {
   );
 });
 
+app.route("/signup", signup);
 app.route("/login", login);
 
 serve(
