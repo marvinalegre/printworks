@@ -10,7 +10,13 @@ import { Nav } from "./components/nav.js";
 
 const app = new Hono();
 
-app.use("/*", serveStatic({ root: "./public" }));
+app.use(
+  "/public/*",
+  serveStatic({
+    root: "./public",
+    rewriteRequestPath: (path) => path.replace(/^\/public/, ""),
+  }),
+);
 
 app.get("/", (c) => {
   return c.html(

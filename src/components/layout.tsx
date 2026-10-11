@@ -18,11 +18,11 @@ export const Layout = ({ children }: Props) => {
           />
           <title>PokéMath</title>
 
-          <link rel="stylesheet" href="/vendor/pico.blue.min.css" />
-          <link rel="stylesheet" href="/css/app.css" />
+          <link rel="stylesheet" href="/public/vendor/pico.blue.min.css" />
+          <link rel="stylesheet" href="/public/css/app.css" />
 
-          <script defer src="/vendor/fixi-0.9.4.js"></script>
-          <script defer src="/js/app.js"></script>
+          <script defer src="/public/vendor/fixi-0.9.4.js"></script>
+          <script defer src="/public/js/app.js"></script>
         </head>
         <body>{children}</body>
       </html>
