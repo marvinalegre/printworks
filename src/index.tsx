@@ -2,6 +2,8 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 
+import { login } from "./routes/login.js";
+
 import { Layout } from "./components/layout.js";
 import { Nav } from "./components/nav.js";
 
@@ -12,10 +14,12 @@ app.use("/*", serveStatic({ root: "./public" }));
 app.get("/", (c) => {
   return c.html(
     <Layout>
-      <Nav />
+      <Nav links={[{ name: "log in", href: "/login" }]} />
     </Layout>,
   );
 });
+
+app.route("/login", login);
 
 serve(
   {

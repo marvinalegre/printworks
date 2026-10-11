@@ -1,3 +1,31 @@
 :root {
-  --pico-font-size: 130%;
+  --pico-font-size: 120%;
+}
+
+nav {
+  font-size: 1.4rem;
+}
+
+.auth-page {
+  max-width: 600px;
+  margin: 0 auto;
+
+  form {
+    margin: 2rem 0;
+  }
+
+  button {
+    margin-top: calc(var(--pico-spacing) + 1rem);
+    font-size: 1.2rem;
+  }
+}
+
+#show-password-label {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 5rem;
+  }
 }
