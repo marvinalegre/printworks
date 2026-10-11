@@ -16,6 +16,7 @@ export const SignupForm = ({ values = {}, fieldErrors = {} }: Props) => {
       fx-method="post"
       fx-target="#signup-form"
       fx-swap="outerHTML"
+      ext-fx-disable
     >
       <label for="username">Username</label>
       <input
@@ -25,6 +26,7 @@ export const SignupForm = ({ values = {}, fieldErrors = {} }: Props) => {
         value={values.username ?? ""}
         aria-invalid={fieldErrors.username ? "true" : ""}
         aria-describedby="username-error"
+        ext-fx-disable-target
       />
       {fieldErrors.username ? (
         <small id="username-error">{fieldErrors.username[0]}</small>
@@ -37,6 +39,7 @@ export const SignupForm = ({ values = {}, fieldErrors = {} }: Props) => {
         name="password"
         aria-invalid={fieldErrors.password ? "true" : ""}
         aria-describedby="password-error"
+        ext-fx-disable-target
       />
       {fieldErrors.password ? (
         <small id="password-error">{fieldErrors.password[0]}</small>
@@ -47,7 +50,9 @@ export const SignupForm = ({ values = {}, fieldErrors = {} }: Props) => {
         Show password
       </label>
 
-      <button type="submit">Sign up</button>
+      <button type="submit" ext-fx-disable-target>
+        Sign up
+      </button>
     </form>
   );
 };
