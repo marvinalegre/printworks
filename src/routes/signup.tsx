@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import { z } from "zod";
+import Database from "better-sqlite3";
 
 import { signupSchema } from "../lib/validation.js";
 import { reservedUsernames } from "../lib/reserved-usernames.js";
 import { db } from "../lib/db.js";
+import { hashPassword } from "../lib/password.js";
 
 import { Nav } from "../components/nav.js";
 import { Layout } from "../components/layout.js";
@@ -58,6 +60,27 @@ signup.post("/", async (c) => {
       422,
     );
   }
+
+  let insertResult;
+  try {
+    insertResult = await createUser(db, username, result.data.password);
+  } catch (e) {
+    return c.html(
+      <SignupForm formError={"Server error. Please try again later."} />,
+      500,
+    );
+  }
+
+  if (insertResult.changes === 1) {
+    return c.newResponse(null, 200, {
+      "FX-Redirect": "/login",
+    });
+  }
+
+  return c.html(
+    <SignupForm formError={"Server error. Please try again later."} />,
+    500,
+  );
 });
 
 const usernameLookup = db.prepare(
@@ -69,4 +92,16 @@ function isUsernameAvailable(username: string): boolean {
     !reservedUsernames.includes(username) &&
     usernameLookup.get(username) == null
   );
+}
+
+export async function createUser(
+  db: Database.Database,
+  username: string,
+  plainPassword: string,
+): Promise<Database.RunResult> {
+  const passwordHash = await hashPassword(plainPassword);
+
+  return db
+    .prepare(`INSERT INTO users (username, password_hash) VALUES (?, ?)`)
+    .run(username, passwordHash);
 }
