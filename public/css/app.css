@@ -10,6 +10,10 @@ nav {
   max-width: 600px;
   margin: 0 auto;
 
+  h1 {
+    text-align: center;
+  }
+
   form {
     margin: 2rem 0;
   }
