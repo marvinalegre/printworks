@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",
-    "hono": "^4.13.13"
+    "@zxcvbn-ts/core": "^4.2.0",
+    "@zxcvbn-ts/language-common": "^4.1.3",
+    "@zxcvbn-ts/language-en": "^4.1.1",
+    "hono": "^4.13.13",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
