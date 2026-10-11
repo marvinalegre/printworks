@@ -19,11 +19,24 @@ export const Nav = ({ links }: Props) => {
       </ul>
       {links && (
         <ul>
-          {links.map((l) => (
+          {links.map((l) => {
+            if (l.name !== "log out") {
+              return (
+                <li>
+                  <a href={l.href}>{l.name}</a>
+                </li>
+              );
+            } else {
+              return null;
+            }
+          })}
+          {links.some((l) => l.name === "log out") && (
             <li>
-              <a href={l.href}>{l.name}</a>
+              <a fx-action="/logout" fx-method="post">
+                log out
+              </a>
             </li>
-          ))}
+          )}
         </ul>
       )}
     </nav>
