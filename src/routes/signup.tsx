@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { z } from "zod";
 
 import { signupSchema } from "../lib/validation.js";
+import { reservedUsernames } from "../lib/reserved-usernames.js";
+import { db } from "../lib/db.js";
 
 import { Nav } from "../components/nav.js";
 import { Layout } from "../components/layout.js";
@@ -29,19 +31,42 @@ signup.get("/", (c) => {
 
 signup.post("/", async (c) => {
   const body = await c.req.parseBody();
-  const result = signupSchema.safeParse(body);
+  const rawUsername = body.username;
 
-  if (!result.success) {
-    const errors = z.flattenError(result.error);
+  if (typeof rawUsername !== "string") {
+    return c.text("Username must be a text value", 400);
+  }
 
+  const username = rawUsername.trim().toLowerCase();
+  const result = signupSchema.safeParse({ ...body, username });
+
+  const fieldErrors: Record<string, string[] | undefined> = result.success
+    ? {}
+    : z.flattenError(result.error).fieldErrors;
+
+  // Check availability even if other fields failed, so every error shows.
+  if (!fieldErrors.username && !isUsernameAvailable(username)) {
+    fieldErrors.username = ["Username is not available"];
+  }
+
+  if (!result.success || fieldErrors.username) {
     return c.html(
       <SignupForm
-        values={{
-          username: typeof body.username === "string" ? body.username : "",
-        }}
-        fieldErrors={errors.fieldErrors}
+        values={{ username: rawUsername }}
+        fieldErrors={fieldErrors}
       />,
       422,
     );
   }
 });
+
+const usernameLookup = db.prepare(
+  "SELECT 1 FROM users WHERE username = ? LIMIT 1",
+);
+
+function isUsernameAvailable(username: string): boolean {
+  return (
+    !reservedUsernames.includes(username) &&
+    usernameLookup.get(username) == null
+  );
+}

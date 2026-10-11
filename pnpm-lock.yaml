@@ -11,6 +11,9 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.3
         version: 2.1.4(hono@4.13.13)
+      '@types/better-sqlite3':
+        specifier: ^9.6.0
+        version: 9.6.0
       '@zxcvbn-ts/core':
         specifier: ^4.2.0
         version: 4.2.0
@@ -20,6 +23,9 @@ importers:
       '@zxcvbn-ts/language-en':
         specifier: ^4.1.1
         version: 4.1.1
+      better-sqlite3:
+        specifier: ^13.0.3
+        version: 13.0.3
       hono:
         specifier: ^4.13.13
         version: 4.13.13
@@ -201,6 +207,9 @@ packages:
     peerDependencies:
       hono: ^4 || ^5.0.0-0
 
+  '@types/better-sqlite3@9.6.0':
+    resolution: {integrity: sha512-ZEEwBSgMu7GYJOynoagg5X9JbxfL6dTJDsgViJIqh67jV44kyOr9RXfmFjLK5rzC4MWssP06t9hu/JwGDnUbCg==}
+
   '@types/node@26.6.4':
     resolution: {integrity: sha512-ldVPDCzj7fsaGZrLB0NuHuTvJcsNasysBAqMolr/cgxrLd1xbqxIr3XJiPnHHJUCxj5sNF1vnRj9aWnrVh5Jcg==}
 
@@ -336,6 +345,10 @@ packages:
   '@zxcvbn-ts/language-en@4.1.1':
     resolution: {integrity: sha512-6UdzuBd3Uex8TKubohcn+uXRVAH34Zjs2eCfT4hQVo9zeTy7AkQRQfdV4OnHR5hQfW/XBrK/AGTZk7VBWh7wwQ==}
 
+  better-sqlite3@13.0.3:
+    resolution: {integrity: sha512-RbOBxmLBG8uvFUc15X9+9SFemKcQ0WBuISBVkpuiaUB2qblC8UWlHEjdWVoZ8AdhSwmoEgsiXKfopX0CQxaACQ==}
+    engines: {node: '>=22'}
+
   esbuild@0.28.2:
     resolution: {integrity: sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==}
     engines: {node: '>=18'}
@@ -353,6 +366,10 @@ packages:
   hono@4.13.13:
     resolution: {integrity: sha512-CQ46U0ZkAGmbT/4UxdzzGJpacP2IeKgY4a5/tOI9AABbpOMfK739wfDXmv1usCk+3RkKj1hQy4/fjhiwa2xlrA==}
     engines: {node: '>=16.9.0'}
+
+  node-addon-api@8.9.2:
+    resolution: {integrity: sha512-VijLXbi3UACN69I0JVXJsX4tjACjNoQDgv2gTF6sx2wWEi8tkSg2eX8p5gSIFi8z2+DL3oHmY6OyKce38SDolg==}
+    engines: {node: ^18 || ^20 || >= 21}
 
   tsx@4.23.15:
     resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
@@ -454,6 +471,10 @@ snapshots:
     dependencies:
       hono: 4.13.13
 
+  '@types/better-sqlite3@9.6.0':
+    dependencies:
+      '@types/node': 26.6.4
+
   '@types/node@26.6.4':
     dependencies:
       undici-types: 8.9.0
@@ -532,6 +553,10 @@ snapshots:
     dependencies:
       '@zxcvbn-ts/dictionary-compression': 3.0.1
 
+  better-sqlite3@13.0.3:
+    dependencies:
+      node-addon-api: 8.9.2
+
   esbuild@0.28.2:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.28.2
@@ -567,6 +592,8 @@ snapshots:
     optional: true
 
   hono@4.13.13: {}
+
+  node-addon-api@8.9.2: {}
 
   tsx@4.23.15:
     dependencies:

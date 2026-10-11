@@ -4,13 +4,21 @@
   "scripts": {
     "dev": "tsx watch src/index.tsx",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "migration:create": "tsx scripts/migrate.ts create",
+    "migration:up": "tsx scripts/migrate.ts up",
+    "migration:down": "tsx scripts/migrate.ts down",
+    "migration:status": "tsx scripts/migrate.ts status",
+    "migration:reset": "tsx scripts/migrate.ts reset",
+    "migration:fresh": "tsx scripts/migrate.ts fresh"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",
+    "@types/better-sqlite3": "^9.6.0",
     "@zxcvbn-ts/core": "^4.2.0",
     "@zxcvbn-ts/language-common": "^4.1.3",
     "@zxcvbn-ts/language-en": "^4.1.1",
+    "better-sqlite3": "^13.0.3",
     "hono": "^4.13.13",
     "zod": "^4.6.5"
   },
