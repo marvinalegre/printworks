@@ -3,6 +3,7 @@ const input = document.getElementById("fileInput");
 const btn = document.getElementById("upload");
 const progress = document.getElementById("progress");
 const statusEl = document.getElementById("status");
+const settings = document.getElementById("settings");
 
 input.addEventListener("change", () => {
   statusEl.textContent = "";
@@ -48,14 +49,11 @@ form.addEventListener("submit", (e) => {
       // Non-JSON response (e.g. an error page)
     }
 
-    const resultEl = document.getElementById("result");
-
     if (xhr.status >= 200 && xhr.status < 300) {
       statusEl.textContent = `Uploaded ${data.filename}`;
-      renderFileCard(data, resultEl);
+      renderFilePrintSettings(data);
     } else {
       statusEl.textContent = data.error ?? `Upload failed (${xhr.status})`;
-      resultEl.replaceChildren();
     }
   };
 
@@ -69,7 +67,6 @@ form.addEventListener("submit", (e) => {
     btn.removeAttribute("aria-busy");
     progress.hidden = true;
     form.reset();
-    fileName.textContent = "No file selected";
   };
 
   xhr.send(formData);
@@ -202,4 +199,13 @@ function renderFileCard(data, container) {
 
   card.append(header, rows, footer);
   container.replaceChildren(card);
+}
+
+function renderFilePrintSettings({ filename }) {
+  if (!settings) return;
+
+  const article = document.createElement("article");
+  article.textContent = filename;
+
+  settings.prepend(article);
 }
