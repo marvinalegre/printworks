@@ -1,9 +1,13 @@
 import { Hono } from "hono";
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import { rm } from "node:fs/promises";
+import { createHash } from "node:crypto";
 
 import { type AppEnv } from "../types/env.js";
+import { db } from "../lib/db.js";
+import { getPdfInfo, pdfToImages, getBWPercentage } from "../lib/pdf.js";
 
 export const upload = new Hono<AppEnv>();
 
@@ -37,5 +41,139 @@ upload.post("/", async (c) => {
 
   await writeFile(filePath, new Uint8Array(await file.arrayBuffer()));
 
-  return c.json({ name: safeName });
+  // TODO: clamscan
+
+  const createOrderResult = db
+    .prepare(
+      `
+      INSERT INTO orders (
+        user_id,
+        order_reference_number
+      )
+      VALUES (?, ?)
+    `,
+    )
+    .bind(c.get("user").userId, randomUUID())
+    .run();
+
+  const { numPages, width, height, size } = await getPdfInfo(filePath);
+
+  let images: string[];
+  try {
+    images = await pdfToImages(filePath);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    if (/Unknown character collection|Adobe-Identity-H/.test(message)) {
+      throw new Error("Unknown character collection", { cause: e });
+    }
+    throw e;
+  }
+
+  const fullColorPages: number[] = [];
+  const midColorPages: number[] = [];
+  const spotColorPages: number[] = [];
+
+  try {
+    for (const [index, imagePath] of images.entries()) {
+      const pageNumber = index + 1;
+      const percentage = await getBWPercentage(imagePath);
+      if (percentage < 0.33) {
+        fullColorPages.push(pageNumber);
+      } else if (percentage < 0.66) {
+        midColorPages.push(pageNumber);
+      } else if (percentage <= 1) {
+        spotColorPages.push(pageNumber);
+      }
+    }
+  } finally {
+    if (images.length > 0) {
+      await rm(path.dirname(images[0]), { recursive: true, force: true });
+    }
+  }
+
+  let pageSize;
+  if (!width || !height) {
+    pageSize = "short";
+  } else if (594 < width && width < 597 && 840 < height && height < 843) {
+    pageSize = "a4";
+  } else if (611 < width && width < 614 && 934 < height && height < 937) {
+    pageSize = "long";
+  } else if (611 < width && width < 614 && 791 < height && height < 793) {
+    pageSize = "short";
+  } else {
+    // TODO: throw something?
+    pageSize = "short";
+  }
+
+  const bytes = await readFile(filePath);
+  const hash = sha256Hex(bytes);
+
+  db.prepare(
+    `
+      INSERT INTO files (
+        order_id,
+        original_name,
+        internal_name,
+        sha256_hash,
+        file_size,
+        num_pages,
+        page_size,
+        full_color_pages,
+        mid_color_pages,
+        spot_color_pages
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  )
+    .bind(
+      createOrderResult.lastInsertRowid,
+      file.name,
+      storedName,
+      hash,
+      size,
+      numPages,
+      pageSize,
+      arrayToRangeString(fullColorPages),
+      arrayToRangeString(midColorPages),
+      arrayToRangeString(spotColorPages),
+    )
+    .run();
+
+  return c.json({
+    filename: file.name,
+    numPages,
+    pageSize,
+    fullColorRanges: arrayToRangeString(fullColorPages),
+    midColorRanges: arrayToRangeString(midColorPages),
+    spotColorRanges: arrayToRangeString(spotColorPages),
+    numFullColorPages: fullColorPages.length,
+    numMidColorPages: midColorPages.length,
+    numSpotColorPages: spotColorPages.length,
+  });
 });
+
+function sha256Hex(bytes: Uint8Array | Buffer): string {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function arrayToRangeString(arr: number[]) {
+  if (arr.length === 0) return null;
+
+  const result = [];
+  let rangeStart = arr[0];
+  let rangeEnd = arr[0];
+
+  for (let i = 1; i <= arr.length; i++) {
+    if (arr[i] === rangeEnd + 1) {
+      rangeEnd = arr[i];
+    } else {
+      if (rangeStart === rangeEnd) {
+        result.push(`${rangeStart}`);
+      } else {
+        result.push(`${rangeStart}-${rangeEnd}`);
+      }
+      rangeStart = arr[i];
+      rangeEnd = arr[i];
+    }
+  }
+
+  return result.join(",");
+}

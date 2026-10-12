@@ -38,6 +38,139 @@ nav {
   margin: 0 auto;
 }
 
+.file-card {
+  width: 100%;
+  max-width: 28rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.file-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.file-card__icon-wrap {
+  background: #f3f4f6;
+  border-radius: 0.75rem;
+  padding: 0.625rem;
+  display: flex;
+}
+
+.file-card__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #4b5563;
+}
+
+.file-card__icon--small {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.file-card__title-block {
+  min-width: 0;
+  flex: 1;
+}
+
+.file-card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-card__meta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.file-card__rows {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.file-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.file-card__row-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-card__dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+}
+
+.file-card__dot--full {
+  background: #f43f5e;
+}
+.file-card__dot--mid {
+  background: #fbbf24;
+}
+.file-card__dot--spot {
+  background: #0ea5e9;
+}
+
+.file-card__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.file-card__row-right {
+  text-align: right;
+}
+
+.file-card__count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.file-card__ranges {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.file-card__footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
 @media (min-width: 768px) {
   .container {
     padding-inline: 5rem;

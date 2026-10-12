@@ -45,6 +45,8 @@ home.get("/", (c) => {
             <progress id="progress" value="0" max="100" hidden></progress>
             <p id="status"></p>
           </article>
+
+          <div id="result" class="mt-4"></div>
         </main>
       </Layout>,
     );
