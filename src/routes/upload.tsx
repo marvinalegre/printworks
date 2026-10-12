@@ -43,18 +43,34 @@ upload.post("/", async (c) => {
 
   // TODO: clamscan
 
-  const createOrderResult = db
-    .prepare(
+  let newOrder = db
+    .prepare<[number], { id: number }>(
       `
+          SELECT orders.id
+          FROM orders
+          FULL JOIN users
+          ON users.id = orders.user_id
+          WHERE status = 'new' AND orders.user_id = ?
+        `,
+    )
+    .get(c.get("user").userId);
+
+  if (!newOrder) {
+    const createOrderResult = db
+      .prepare(
+        `
       INSERT INTO orders (
         user_id,
         order_reference_number
       )
       VALUES (?, ?)
     `,
-    )
-    .bind(c.get("user").userId, randomUUID())
-    .run();
+      )
+      .bind(c.get("user").userId, randomUUID())
+      .run();
+
+    newOrder = { id: Number(createOrderResult.lastInsertRowid) };
+  }
 
   const { numPages, width, height, size } = await getPdfInfo(filePath);
 
@@ -124,7 +140,7 @@ upload.post("/", async (c) => {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   )
     .bind(
-      createOrderResult.lastInsertRowid,
+      newOrder.id,
       file.name,
       storedName,
       hash,
