@@ -37,5 +37,5 @@ upload.post("/", async (c) => {
 
   await writeFile(filePath, new Uint8Array(await file.arrayBuffer()));
 
-  return c.html(<p>hit</p>);
+  return c.json({ name: safeName });
 });

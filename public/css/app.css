@@ -33,6 +33,11 @@ nav {
   margin: 0;
 }
 
+#file-uploader {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
 @media (min-width: 768px) {
   .container {
     padding-inline: 5rem;
