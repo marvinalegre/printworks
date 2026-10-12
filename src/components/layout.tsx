@@ -3,10 +3,11 @@ import { type Child } from "hono/jsx";
 import { HtmlDocument } from "./html-document.js";
 
 interface Props {
+  js?: string[];
   children: Child;
 }
 
-export const Layout = ({ children }: Props) => {
+export const Layout = ({ js = [], children }: Props) => {
   return (
     <HtmlDocument>
       <html lang="en" data-theme="dark">
@@ -23,6 +24,9 @@ export const Layout = ({ children }: Props) => {
 
           <script defer src="/public/vendor/fixi-0.9.4.js"></script>
           <script defer src="/public/js/app.js"></script>
+          {js.map((filename) => (
+            <script defer src={`/public/js/${filename}`}></script>
+          ))}
         </head>
         <body>{children}</body>
       </html>

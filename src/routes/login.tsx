@@ -17,7 +17,7 @@ export const login = new Hono();
 
 login.get("/", (c) => {
   return c.html(
-    <Layout>
+    <Layout js={["auth.js"]}>
       <Nav />
 
       <main class="container auth-page">
