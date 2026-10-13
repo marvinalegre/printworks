@@ -13,6 +13,7 @@ import { checkout } from "./routes/checkout.js";
 import { myaccount } from "./routes/myaccount.js";
 
 import { authMiddleware } from "./middlewares/auth.js";
+import { requireUserOne } from "./middlewares/authorization.js";
 
 const app = new Hono<AppEnv>();
 
@@ -21,14 +22,6 @@ app.use(
   serveStatic({
     root: "./public",
     rewriteRequestPath: (path) => path.replace(/^\/public/, ""),
-  }),
-);
-
-app.use(
-  "/private/*",
-  serveStatic({
-    root: "/var/lib/printworks/files",
-    rewriteRequestPath: (path) => path.replace(/^\/private/, ""),
   }),
 );
 
@@ -41,6 +34,15 @@ app.route("/logout", logout);
 app.route("/upload", upload);
 app.route("/checkout", checkout);
 app.route("/myaccount", myaccount);
+
+app.use("/private/*", requireUserOne);
+app.use(
+  "/private/*",
+  serveStatic({
+    root: "/var/lib/printworks/files",
+    rewriteRequestPath: (path) => path.replace(/^\/private/, ""),
+  }),
+);
 
 serve(
   {
