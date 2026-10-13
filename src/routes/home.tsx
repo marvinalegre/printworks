@@ -13,9 +13,10 @@ export const home = new Hono<AppEnv>();
 home.get("/", (c) => {
   const user = c.get("user");
 
-  const files = db
-    .prepare<[number], { original_name: string; num_pages: number }>(
-      `
+  if (user) {
+    const files = db
+      .prepare<[number], { original_name: string; num_pages: number }>(
+        `
     SELECT
       original_name,
       num_pages
@@ -25,10 +26,9 @@ home.get("/", (c) => {
     WHERE orders.status = 'new'
       AND users.id = ?
     `,
-    )
-    .all(c.get("user").userId);
+      )
+      .all(c.get("user").userId);
 
-  if (user) {
     return c.html(
       <Layout js={["upload.js"]}>
         <Nav
