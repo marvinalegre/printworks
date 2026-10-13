@@ -15,6 +15,15 @@ interface Props {
   orders: Order[];
 }
 
+const statusLabels = {
+  new: "New",
+  queued: "Queued",
+  printing: "Printing",
+  printed: "Printed",
+  handed_over: "Handed over",
+  cancelled: "Cancelled",
+} as const;
+
 export const Orders = ({ orders }: Props) => (
   <section class="container">
     <h2>Orders</h2>
@@ -24,9 +33,11 @@ export const Orders = ({ orders }: Props) => (
     ) : (
       orders.map((order) => (
         <article key={order.id} className="order">
-          <header>
+          <header className="order-header">
             <strong>Order #{order.id}</strong>
-            <span>{order.status}</span>
+            <span className={`status-badge status-${order.status}`}>
+              {statusLabels[order.status]}
+            </span>
           </header>
 
           <p>
