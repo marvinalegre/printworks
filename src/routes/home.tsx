@@ -33,7 +33,7 @@ home.get("/", (c) => {
       <Layout js={["upload.js"]}>
         <Nav
           links={[
-            { name: user.username, href: "#" },
+            { name: user.username, href: "/myaccount" },
             { name: "log out", href: "/logout" },
           ]}
         />
@@ -51,7 +51,10 @@ home.get("/", (c) => {
             ))}
           </div>
 
-          <button>Checkout</button>
+          <form fx-action="/checkout" fx-method="post">
+            <input type="hidden" name="userId" value={c.get("user").userId} />
+            <button type="submit">Checkout</button>
+          </form>
         </main>
       </Layout>,
     );

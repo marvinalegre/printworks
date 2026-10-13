@@ -9,6 +9,8 @@ import { signup } from "./routes/signup.js";
 import { login } from "./routes/login.js";
 import { logout } from "./routes/logout.js";
 import { upload } from "./routes/upload.js";
+import { checkout } from "./routes/checkout.js";
+import { myaccount } from "./routes/myaccount.js";
 
 import { authMiddleware } from "./middlewares/auth.js";
 
@@ -29,6 +31,8 @@ app.route("/signup", signup);
 app.route("/login", login);
 app.route("/logout", logout);
 app.route("/upload", upload);
+app.route("/checkout", checkout);
+app.route("/myaccount", myaccount);
 
 serve(
   {
