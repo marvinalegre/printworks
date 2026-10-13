@@ -1,6 +1,7 @@
 const form = document.getElementById("uploadForm");
 const input = document.getElementById("fileInput");
 const btn = document.getElementById("upload");
+const checkoutBtn = document.getElementById("checkout-btn");
 const progress = document.getElementById("progress");
 const statusEl = document.getElementById("status");
 const settings = document.getElementById("settings");
@@ -26,6 +27,7 @@ form.addEventListener("submit", (e) => {
   input.disabled = true;
   btn.disabled = true;
   btn.setAttribute("aria-busy", "true");
+  checkoutBtn.disabled = true;
   progress.hidden = false;
   progress.value = 0;
 
@@ -52,6 +54,11 @@ form.addEventListener("submit", (e) => {
     if (xhr.status >= 200 && xhr.status < 300) {
       statusEl.textContent = `Uploaded ${data.filename}`;
       renderFilePrintSettings(data);
+
+      const form = document.getElementById("checkout-form");
+      if (settings.children.length === 1) {
+        form.style.display = form.style.display === "none" ? "block" : "none";
+      }
     } else {
       statusEl.textContent = data.error ?? `Upload failed (${xhr.status})`;
     }
@@ -65,6 +72,7 @@ form.addEventListener("submit", (e) => {
     input.disabled = false;
     btn.disabled = false;
     btn.removeAttribute("aria-busy");
+    checkoutBtn.disabled = false;
     progress.hidden = true;
     form.reset();
   };

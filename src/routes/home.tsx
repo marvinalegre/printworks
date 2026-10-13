@@ -107,9 +107,17 @@ ORDER BY orders.created_at DESC, files.id;
             ))}
           </div>
 
-          <form fx-action="/checkout" fx-method="post">
+          <form
+            id="checkout-form"
+            fx-action="/checkout"
+            fx-method="post"
+            ext-fx-disable
+            style={{ display: files.length > 0 ? "block" : "none" }}
+          >
             <input type="hidden" name="userId" value={c.get("user").userId} />
-            <button type="submit">Checkout</button>
+            <button id="checkout-btn" type="submit" ext-fx-disable-target>
+              Checkout
+            </button>
           </form>
         </main>
       </Layout>,

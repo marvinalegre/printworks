@@ -464,6 +464,11 @@ nav {
   border-color: #fecaca;
 }
 
+#checkout-form {
+  width: 50%;
+  margin: 0 auto;
+}
+
 @media (max-width: 600px) {
   #settings .print-settings .file-heading,
   #settings .print-settings .settings-section {

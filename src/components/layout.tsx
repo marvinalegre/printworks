@@ -17,7 +17,7 @@ export const Layout = ({ js = [], children }: Props) => {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>PokéMath</title>
+          <title>Printworks</title>
 
           <link rel="stylesheet" href="/public/vendor/pico.blue.min.css" />
           <link rel="stylesheet" href="/public/css/app.css" />

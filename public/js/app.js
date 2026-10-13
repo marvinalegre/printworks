@@ -14,6 +14,10 @@ document.addEventListener("fx:init", (evt) => {
       );
       disableTargets.forEach((target) => {
         target.disabled = true;
+
+        if (target instanceof HTMLButtonElement) {
+          target.setAttribute("aria-busy", "true");
+        }
       });
       evt.target.addEventListener("fx:after", (afterEvt) => {
         if (afterEvt.target == evt.target) {
