@@ -24,6 +24,14 @@ app.use(
   }),
 );
 
+app.use(
+  "/private/*",
+  serveStatic({
+    root: "/var/lib/printworks/files",
+    rewriteRequestPath: (path) => path.replace(/^\/private/, ""),
+  }),
+);
+
 app.use("/*", authMiddleware());
 
 app.route("/", home);
