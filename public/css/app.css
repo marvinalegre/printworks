@@ -35,7 +35,7 @@ nav {
 
 #file-uploader {
   max-width: 550px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
 }
 
 .file-card {
@@ -169,6 +169,289 @@ nav {
   gap: 0.5rem;
   font-size: 0.75rem;
   color: #6b7280;
+}
+
+/* File print settings */
+
+#settings .print-settings {
+  --print-full: #6366f1;
+  --print-mid: #d97706;
+  --print-spot: #0d9488;
+  --print-surface: var(--pico-card-background-color);
+  --print-border: var(--pico-muted-border-color);
+
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--print-border);
+  border-radius: 1rem;
+  background: var(--pico-card-background-color);
+  box-shadow: 0 8px 30px rgb(0 0 0 / 4%);
+}
+
+#settings .print-settings h2,
+#settings .print-settings h3,
+#settings .print-settings p {
+  margin: 0;
+}
+
+#settings .print-settings .file-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--print-border);
+  background: var(--pico-card-sectioning-background-color);
+}
+
+#settings .print-settings .file-icon {
+  display: grid;
+  flex: 0 0 3.25rem;
+  height: 3.75rem;
+  place-items: center;
+  border: 1px solid var(--print-border);
+  border-radius: 0.75rem;
+  background: var(--pico-card-background-color);
+  color: var(--pico-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+#settings .print-settings .file-heading-text {
+  min-width: 0;
+}
+
+#settings .print-settings .eyebrow {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--pico-muted-color);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+#settings .print-settings .file-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+#settings .print-settings .file-meta {
+  margin-top: 0.35rem;
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+}
+
+#settings .print-settings .settings-section {
+  padding: 1.5rem;
+}
+
+#settings .print-settings .section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#settings .print-settings .section-heading h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+#settings .print-settings .page-total {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--print-border);
+  border-radius: 2rem;
+  color: var(--pico-muted-color);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+#settings .print-settings .color-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+#settings .print-settings .color-card {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--print-border);
+  border-radius: 0.75rem;
+  background: var(--print-surface);
+}
+
+#settings .print-settings .color-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+  color: var(--pico-muted-color);
+  font-size: 0.78rem;
+}
+
+#settings .print-settings .color-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+#settings .print-settings .full-color {
+  --category-color: var(--print-full);
+}
+
+#settings .print-settings .mid-color {
+  --category-color: var(--print-mid);
+}
+
+#settings .print-settings .spot-color {
+  --category-color: var(--print-spot);
+}
+
+#settings .print-settings .color-card {
+  border-top: 3px solid var(--category-color);
+}
+
+#settings .print-settings .color-dot {
+  color: var(--category-color);
+}
+
+#settings .print-settings .color-count {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+
+#settings .print-settings .color-unit {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--pico-muted-color);
+  font-size: 0.75rem;
+}
+
+#settings .print-settings .range-value {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--print-border);
+  color: var(--pico-muted-color);
+  font-family: var(--pico-font-family-monospace);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+#settings .print-settings .print-section {
+  border-top: 1px solid var(--print-border);
+  background: var(--pico-card-sectioning-background-color);
+}
+
+#settings .print-settings .print-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+#settings .print-settings .print-form label {
+  min-width: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+#settings .print-settings .print-form input,
+#settings .print-settings .print-form select {
+  margin-top: 0.45rem;
+  margin-bottom: 0;
+  background-color: var(--pico-card-background-color);
+}
+
+#settings .print-settings .print-form .pages-field,
+#settings .print-settings .print-form button {
+  grid-column: 1 / -1;
+}
+
+#settings .print-settings .print-form small {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--pico-muted-color);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+#settings .print-settings .print-form button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+#settings .print-settings .print-form button span {
+  font-size: 1.2rem;
+  transition: transform 150ms ease;
+}
+
+#settings .print-settings .print-form button:hover span {
+  transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+  #settings .print-settings .file-heading,
+  #settings .print-settings .settings-section {
+    padding: 1rem;
+  }
+
+  #settings .print-settings .color-breakdown {
+    grid-template-columns: 1fr;
+  }
+
+  #settings .print-settings .color-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 0.75rem;
+  }
+
+  #settings .print-settings .color-card-top {
+    grid-column: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  #settings .print-settings .color-count {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    font-size: 1.75rem;
+  }
+
+  #settings .print-settings .color-unit {
+    display: none;
+  }
+
+  #settings .print-settings .range-value {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+
+  #settings .print-settings .print-form {
+    grid-template-columns: 1fr;
+  }
+
+  #settings .print-settings .print-form .pages-field,
+  #settings .print-settings .print-form button {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #settings .print-settings * {
+    transition: none !important;
+  }
 }
 
 @media (min-width: 768px) {

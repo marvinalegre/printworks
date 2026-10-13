@@ -201,11 +201,160 @@ function renderFileCard(data, container) {
   container.replaceChildren(card);
 }
 
-function renderFilePrintSettings({ filename }) {
+function renderFilePrintSettings({
+  filename,
+  numPages,
+  pageSize,
+  fullColorRanges,
+  midColorRanges,
+  spotColorRanges,
+  numFullColorPages,
+  numMidColorPages,
+  numSpotColorPages,
+}) {
   if (!settings) return;
 
   const article = document.createElement("article");
-  article.textContent = filename;
+  article.className = "print-settings";
+
+  article.innerHTML = `
+    <div class="file-heading">
+      <div class="file-icon" aria-hidden="true">PDF</div>
+      <div class="file-heading-text">
+        <span class="eyebrow">DOCUMENT DETAILS</span>
+        <h2 class="file-name"></h2>
+        <p class="file-meta"></p>
+      </div>
+    </div>
+
+    <section class="settings-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">ANALYSIS</span>
+          <h3>Color breakdown</h3>
+        </div>
+        <span class="page-total"></span>
+      </div>
+
+      <div class="color-breakdown">
+        <div class="color-card full-color">
+          <div class="color-card-top">
+            <span class="color-dot"></span>
+            <span>Full color</span>
+          </div>
+          <strong class="color-count"></strong>
+          <span class="color-unit">pages</span>
+          <div class="range-value"></div>
+        </div>
+
+        <div class="color-card mid-color">
+          <div class="color-card-top">
+            <span class="color-dot"></span>
+            <span>Mid color</span>
+          </div>
+          <strong class="color-count"></strong>
+          <span class="color-unit">pages</span>
+          <div class="range-value"></div>
+        </div>
+
+        <div class="color-card spot-color">
+          <div class="color-card-top">
+            <span class="color-dot"></span>
+            <span>Spot color</span>
+          </div>
+          <strong class="color-count"></strong>
+          <span class="color-unit">pages</span>
+          <div class="range-value"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="settings-section print-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">CONFIGURATION</span>
+          <h3>Print settings</h3>
+        </div>
+      </div>
+
+      <form class="print-form">
+        <label>
+          Page size
+          <select name="pageSize">
+            <option value="A4">A4</option>
+            <option value="A3">A3</option>
+            <option value="Letter">Letter</option>
+            <option value="Legal">Legal</option>
+          </select>
+        </label>
+
+        <label>
+          Copies
+          <input
+            type="number"
+            name="copies"
+            min="1"
+            max="999"
+            value="1"
+            required
+          />
+        </label>
+
+        <label>
+          Color mode
+          <select name="colorMode">
+            <option value="color">Color</option>
+            <option value="grayscale">Grayscale</option>
+            <option value="black">Black and white</option>
+          </select>
+        </label>
+
+        <label>
+          Orientation
+          <select name="orientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </label>
+
+        <label class="pages-field">
+          Pages to print
+          <input
+            type="text"
+            name="pages"
+            placeholder="All pages (e.g. 1-5, 8)"
+          />
+          <small>Leave empty to print every page.</small>
+        </label>
+      </form>
+    </section>
+  `;
+
+  const setText = (selector, value) => {
+    article.querySelector(selector).textContent = value;
+  };
+
+  setText(".file-name", filename);
+  setText(".file-meta", `${numPages} pages · PDF document`);
+  setText(".page-total", `${numPages} total pages`);
+
+  const breakdowns = [
+    [".full-color", numFullColorPages, fullColorRanges],
+    [".mid-color", numMidColorPages, midColorRanges],
+    [".spot-color", numSpotColorPages, spotColorRanges],
+  ];
+
+  for (const [selector, count, ranges] of breakdowns) {
+    const card = article.querySelector(selector);
+    card.querySelector(".color-count").textContent = count;
+    card.querySelector(".range-value").textContent = ranges || "No pages";
+  }
+
+  article.querySelector('[name="pageSize"]').value = [
+    ...article.querySelector('[name="pageSize"]').options,
+  ].some((option) => option.value === pageSize)
+    ? pageSize
+    : "A4";
 
   settings.prepend(article);
 }

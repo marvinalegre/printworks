@@ -14,9 +14,11 @@ home.get("/", (c) => {
   const user = c.get("user");
 
   const files = db
-    .prepare<[number], { original_name: string }>(
+    .prepare<[number], { original_name: string; num_pages: number }>(
       `
-    SELECT original_name
+    SELECT
+      original_name,
+      num_pages
     FROM files
     FULL JOIN orders ON orders.id = files.order_id
     FULL JOIN users ON users.id = orders.user_id
@@ -41,9 +43,15 @@ home.get("/", (c) => {
 
           <div id="settings">
             {files.map((f) => (
-              <FilePrintSettings filename={f.original_name} />
+              // TODO: fill this out
+              <FilePrintSettings
+                filename={f.original_name}
+                numPages={f.num_pages}
+              />
             ))}
           </div>
+
+          <button>Checkout</button>
         </main>
       </Layout>,
     );
