@@ -46,10 +46,14 @@ upload.post("/", async (c) => {
   let newOrder = db
     .prepare<[number], { id: number }>(
       `
-          SELECT orders.id
-          FROM orders
-          WHERE status = 'new' AND orders.user_id = ?
-        `,
+      SELECT
+        orders.id
+      FROM
+        orders
+      WHERE
+        status = 'new'
+        AND orders.user_id = ?
+      `,
     )
     .get(c.get("user").userId);
 
@@ -57,12 +61,11 @@ upload.post("/", async (c) => {
     const createOrderResult = db
       .prepare(
         `
-      INSERT INTO orders (
-        user_id,
-        order_reference_number
-      )
-      VALUES (?, ?)
-    `,
+        INSERT INTO
+          orders (user_id, order_reference_number)
+        VALUES
+          (?, ?)
+        `,
       )
       .bind(c.get("user").userId, randomUUID())
       .run();
@@ -124,7 +127,8 @@ upload.post("/", async (c) => {
 
   db.prepare(
     `
-      INSERT INTO files (
+    INSERT INTO
+      files (
         order_id,
         original_name,
         internal_name,
@@ -135,7 +139,10 @@ upload.post("/", async (c) => {
         full_color_pages,
         mid_color_pages,
         spot_color_pages
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+    VALUES
+      (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `,
   )
     .bind(
       newOrder.id,
