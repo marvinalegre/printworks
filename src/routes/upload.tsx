@@ -48,8 +48,6 @@ upload.post("/", async (c) => {
       `
           SELECT orders.id
           FROM orders
-          FULL JOIN users
-          ON users.id = orders.user_id
           WHERE status = 'new' AND orders.user_id = ?
         `,
     )
