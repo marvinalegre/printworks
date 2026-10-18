@@ -1,7 +1,6 @@
 import Database from "better-sqlite3";
-import path from "node:path";
 
-const dbPath = path.join("/var/lib/printworks/dev.db");
+const dbPath = "/var/lib/printworks/dev.db";
 
 export const db = new Database(dbPath);
 
