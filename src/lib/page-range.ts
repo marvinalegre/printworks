@@ -79,3 +79,27 @@ export function countPages(range: string) {
   // The size of the Set represents the number of unique pages
   return pages.size;
 }
+
+export function arrayToRangeString(arr: number[]) {
+  if (arr.length === 0) return null;
+
+  const result = [];
+  let rangeStart = arr[0];
+  let rangeEnd = arr[0];
+
+  for (let i = 1; i <= arr.length; i++) {
+    if (arr[i] === rangeEnd + 1) {
+      rangeEnd = arr[i];
+    } else {
+      if (rangeStart === rangeEnd) {
+        result.push(`${rangeStart}`);
+      } else {
+        result.push(`${rangeStart}-${rangeEnd}`);
+      }
+      rangeStart = arr[i];
+      rangeEnd = arr[i];
+    }
+  }
+
+  return result.join(",");
+}

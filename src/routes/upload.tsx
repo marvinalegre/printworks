@@ -8,6 +8,7 @@ import { createHash } from "node:crypto";
 import { type AppEnv } from "@/types/env.js";
 import { db } from "@/lib/db.js";
 import { getPdfInfo, pdfToImages, getBWPercentage } from "@/lib/pdf.js";
+import { arrayToRangeString } from "@/lib/page-range.js";
 
 export const upload = new Hono<AppEnv>();
 
@@ -173,28 +174,4 @@ upload.post("/", async (c) => {
 
 function sha256Hex(bytes: Uint8Array | Buffer): string {
   return createHash("sha256").update(bytes).digest("hex");
-}
-
-function arrayToRangeString(arr: number[]) {
-  if (arr.length === 0) return null;
-
-  const result = [];
-  let rangeStart = arr[0];
-  let rangeEnd = arr[0];
-
-  for (let i = 1; i <= arr.length; i++) {
-    if (arr[i] === rangeEnd + 1) {
-      rangeEnd = arr[i];
-    } else {
-      if (rangeStart === rangeEnd) {
-        result.push(`${rangeStart}`);
-      } else {
-        result.push(`${rangeStart}-${rangeEnd}`);
-      }
-      rangeStart = arr[i];
-      rangeEnd = arr[i];
-    }
-  }
-
-  return result.join(",");
 }
