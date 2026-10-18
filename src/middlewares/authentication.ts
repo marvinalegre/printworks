@@ -1,8 +1,8 @@
 import { createMiddleware } from "hono/factory";
 import { getCookie } from "hono/cookie";
 
-import { db } from "../lib/db.js";
-import type { AppEnv } from "../types/env.js";
+import { db } from "@/lib/db.js";
+import type { AppEnv } from "@/types/env.js";
 
 export const authenticationMiddleware = () =>
   createMiddleware<AppEnv>(async (c, next) => {

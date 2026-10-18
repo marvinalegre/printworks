@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 
-import { type AppEnv } from "../types/env.js";
-import { db } from "../lib/db.js";
+import { type AppEnv } from "@/types/env.js";
+import { db } from "@/lib/db.js";
 
-import { Nav } from "../components/nav.js";
-import { Layout } from "../components/layout.js";
-import { Orders } from "../components/orders.js";
+import { Nav } from "@/components/nav.js";
+import { Layout } from "@/components/layout.js";
+import { Orders } from "@/components/orders.js";
 
 export const myaccount = new Hono<AppEnv>();
 

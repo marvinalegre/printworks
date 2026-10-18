@@ -2,18 +2,18 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 
-import { type AppEnv } from "./types/env.js";
+import { type AppEnv } from "@/types/env.js";
 
-import { home } from "./routes/home.js";
-import { signup } from "./routes/signup.js";
-import { login } from "./routes/login.js";
-import { logout } from "./routes/logout.js";
-import { upload } from "./routes/upload.js";
-import { checkout } from "./routes/checkout.js";
-import { myaccount } from "./routes/myaccount.js";
+import { home } from "@/routes/home.js";
+import { signup } from "@/routes/signup.js";
+import { login } from "@/routes/login.js";
+import { logout } from "@/routes/logout.js";
+import { upload } from "@/routes/upload.js";
+import { checkout } from "@/routes/checkout.js";
+import { myaccount } from "@/routes/myaccount.js";
 
-import { authenticationMiddleware } from "./middlewares/authentication.js";
-import { requireUserOne } from "./middlewares/authorization.js";
+import { authenticationMiddleware } from "@/middlewares/authentication.js";
+import { requireUserOne } from "@/middlewares/authorization.js";
 
 const app = new Hono<AppEnv>();
 

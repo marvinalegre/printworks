@@ -1,6 +1,6 @@
 import { type Child } from "hono/jsx";
 
-import { HtmlDocument } from "./html-document.js";
+import { HtmlDocument } from "@/components/html-document.js";
 
 interface Props {
   js?: string[];

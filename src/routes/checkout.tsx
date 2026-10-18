@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 
-import { type AppEnv } from "../types/env.js";
-import { db } from "../lib/db.js";
+import { type AppEnv } from "@/types/env.js";
+import { db } from "@/lib/db.js";
 
 export const checkout = new Hono<AppEnv>();
 

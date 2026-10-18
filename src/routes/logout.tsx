@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { getCookie, deleteCookie } from "hono/cookie";
-import { removeSession } from "../lib/sessions.js";
+import { removeSession } from "@/lib/sessions.js";
 
 export const logout = new Hono();
 

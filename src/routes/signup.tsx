@@ -2,14 +2,14 @@ import { Hono } from "hono";
 import { z } from "zod";
 import Database from "better-sqlite3";
 
-import { signupSchema } from "../lib/validation.js";
-import { reservedUsernames } from "../lib/reserved-usernames.js";
-import { db } from "../lib/db.js";
-import { hashPassword } from "../lib/password.js";
+import { signupSchema } from "@/lib/validation.js";
+import { reservedUsernames } from "@/lib/reserved-usernames.js";
+import { db } from "@/lib/db.js";
+import { hashPassword } from "@/lib/password.js";
 
-import { Nav } from "../components/nav.js";
-import { Layout } from "../components/layout.js";
-import { SignupForm } from "../components/signup-form.js";
+import { Nav } from "@/components/nav.js";
+import { Layout } from "@/components/layout.js";
+import { SignupForm } from "@/components/signup-form.js";
 
 export const signup = new Hono();
 

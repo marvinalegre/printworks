@@ -1,13 +1,13 @@
 import { Hono } from "hono";
 
-import { type AppEnv } from "../types/env.js";
-import { db } from "../lib/db.js";
+import { type AppEnv } from "@/types/env.js";
+import { db } from "@/lib/db.js";
 
-import { Nav } from "../components/nav.js";
-import { Layout } from "../components/layout.js";
-import { FileUploader } from "../components/file-uploader.js";
-import { FilePrintSettings } from "../components/file-print-settings.js";
-import { AdminOrders } from "../components/admin-orders.js";
+import { Nav } from "@/components/nav.js";
+import { Layout } from "@/components/layout.js";
+import { FileUploader } from "@/components/file-uploader.js";
+import { FilePrintSettings } from "@/components/file-print-settings.js";
+import { AdminOrders } from "@/components/admin-orders.js";
 
 export const home = new Hono<AppEnv>();
 

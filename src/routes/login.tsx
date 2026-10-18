@@ -1,17 +1,17 @@
 import { Hono } from "hono";
 import { setCookie } from "hono/cookie";
 
-import { db } from "../lib/db.js";
-import { verifyPassword } from "../lib/password.js";
+import { db } from "@/lib/db.js";
+import { verifyPassword } from "@/lib/password.js";
 import {
   SESSION_TTL_MS,
   createSession,
   cleanupExpiredSessions,
-} from "../lib/sessions.js";
+} from "@/lib/sessions.js";
 
-import { Nav } from "../components/nav.js";
-import { Layout } from "../components/layout.js";
-import { LoginForm } from "../components/login-form.js";
+import { Nav } from "@/components/nav.js";
+import { Layout } from "@/components/layout.js";
+import { LoginForm } from "@/components/login-form.js";
 
 export const login = new Hono();
 

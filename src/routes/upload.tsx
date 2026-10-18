@@ -5,9 +5,9 @@ import { randomUUID } from "node:crypto";
 import { rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 
-import { type AppEnv } from "../types/env.js";
-import { db } from "../lib/db.js";
-import { getPdfInfo, pdfToImages, getBWPercentage } from "../lib/pdf.js";
+import { type AppEnv } from "@/types/env.js";
+import { db } from "@/lib/db.js";
+import { getPdfInfo, pdfToImages, getBWPercentage } from "@/lib/pdf.js";
 
 export const upload = new Hono<AppEnv>();
 
