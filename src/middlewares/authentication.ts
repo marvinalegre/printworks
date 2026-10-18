@@ -4,7 +4,7 @@ import { getCookie } from "hono/cookie";
 import { db } from "../lib/db.js";
 import type { AppEnv } from "../types/env.js";
 
-export const authMiddleware = () =>
+export const authenticationMiddleware = () =>
   createMiddleware<AppEnv>(async (c, next) => {
     const sessionId = getCookie(c, "session");
     const user =

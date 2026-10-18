@@ -12,7 +12,7 @@ import { upload } from "./routes/upload.js";
 import { checkout } from "./routes/checkout.js";
 import { myaccount } from "./routes/myaccount.js";
 
-import { authMiddleware } from "./middlewares/auth.js";
+import { authenticationMiddleware } from "./middlewares/authentication.js";
 import { requireUserOne } from "./middlewares/authorization.js";
 
 const app = new Hono<AppEnv>();
@@ -25,7 +25,7 @@ app.use(
   }),
 );
 
-app.use("/*", authMiddleware());
+app.use("/*", authenticationMiddleware());
 
 app.route("/", home);
 app.route("/signup", signup);
